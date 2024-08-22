@@ -29,8 +29,12 @@
             100% { background-position: 0% 0%; }
         }
         #clock {
-            margin-top: 100px;
-            font-size: 2em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 80vh; /* Chiếm 80% chiều cao của viewport */
+            font-size: 3em; /* Kích thước chữ lớn hơn */
         }
         #time {
             margin-top: 20px;
@@ -39,13 +43,14 @@
             margin-top: 20px;
         }
         select {
-            font-size: 1em;
+            font-size: 1.2em; /* Tăng kích thước chữ cho danh sách lựa chọn */
+            padding: 10px;
         }
         #current-time {
             position: absolute;
             top: 10px;
             right: 10px;
-            font-size: 1em;
+            font-size: 1.2em;
         }
     </style>
 </head>
@@ -54,16 +59,16 @@
     <div id="current-time"></div>
     <div id="clock">
         <div id="time">Chọn năm để xem đếm ngược</div>
-    </div>
-    <div id="year-selector">
-        <select id="year" onchange="updateCountdown()">
-            <option value="2025">Tết Âm Lịch 2025</option>
-            <option value="2026">Tết Âm Lịch 2026</option>
-            <option value="2027">Tết Âm Lịch 2027</option>
-            <option value="2028">Tết Âm Lịch 2028</option>
-            <option value="2029">Tết Âm Lịch 2029</option>
-            <option value="2030">Tết Âm Lịch 2030</option>
-        </select>
+        <div id="year-selector">
+            <select id="year" onchange="updateCountdown()">
+                <option value="2025">Tết Âm Lịch 2025</option>
+                <option value="2026">Tết Âm Lịch 2026</option>
+                <option value="2027">Tết Âm Lịch 2027</option>
+                <option value="2028">Tết Âm Lịch 2028</option>
+                <option value="2029">Tết Âm Lịch 2029</option>
+                <option value="2030">Tết Âm Lịch 2030</option>
+            </select>
+        </div>
     </div>
     <script>
         function updateCountdown() {
