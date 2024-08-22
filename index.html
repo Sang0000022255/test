@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đếm Ngược Tết Âm Lịch</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            color: #fff;
+            text-align: center;
+        }
+        #background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #ff6b6b, #f7e8a3);
+            background-size: 200% 200%;
+            animation: gradient 5s ease infinite;
+            z-index: -1;
+        }
+        @keyframes gradient {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+        #clock {
+            margin-top: 100px;
+            font-size: 2em;
+        }
+        #time {
+            margin-top: 20px;
+        }
+        #year-selector {
+            margin-top: 20px;
+        }
+        select {
+            font-size: 1em;
+        }
+        #current-time {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+    <div id="background"></div>
+    <div id="current-time"></div>
+    <div id="clock">
+        <div id="time">Chọn năm để xem đếm ngược</div>
+    </div>
+    <div id="year-selector">
+        <select id="year" onchange="updateCountdown()">
+            <option value="2025">Tết Âm Lịch 2025</option>
+            <option value="2026">Tết Âm Lịch 2026</option>
+            <option value="2027">Tết Âm Lịch 2027</option>
+            <option value="2028">Tết Âm Lịch 2028</option>
+            <option value="2029">Tết Âm Lịch 2029</option>
+            <option value="2030">Tết Âm Lịch 2030</option>
+        </select>
+    </div>
+    <script>
+        function updateCountdown() {
+            const year = document.getElementById('year').value;
+            const countdownDate = new Date(`February 10, ${year} 00:00:00`).getTime();
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+
+            if (distance < 0) {
+                document.getElementById('time').innerHTML = 'Đã qua Tết!';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('time').innerHTML = `
+                ${days} ngày ${hours} giờ ${minutes} phút ${seconds} giây
+            `;
+        }
+
+        function updateCurrentTime() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('current-time').innerText = `${hours}:${minutes}:${seconds}`;
+        }
+
+        setInterval(updateCountdown, 1000);
+        setInterval(updateCurrentTime, 1000);
+        updateCountdown();
+        updateCurrentTime();
+    </script>
+</body>
+</html>
